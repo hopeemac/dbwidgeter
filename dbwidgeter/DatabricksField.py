@@ -1,13 +1,16 @@
 import logging
 from pydantic import Field
 
-from dbwidgeter.utils import WIDGET_TAG, JOB_UNDEFINED, get_or_create_widget_safe
+from dbwidgeter.utils import WIDGET_TAG, JOB_UNDEFINED, get_or_create_widget_safe, get_dbutils
 
 
-def DatabricksField(field_name, test_widget_value='DUMMY_TEST', **kwargs):
+def DatabricksField(field_name, dbutils=None, **kwargs):
     # Note: Pydantic will Warn if user passes in a Tag value in kwargs
     
-    widget_value = get_or_create_widget_safe(field_name, test_widget_value)
+    if dbutils is None:
+        dbutils = get_dbutils()
+    
+    widget_value = get_or_create_widget_safe(field_name, dbutils)
     
     widget_is_unset = widget_value in ['', None]
     widget_has_default = 'default' in list(kwargs.keys())

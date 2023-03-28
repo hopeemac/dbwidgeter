@@ -31,11 +31,7 @@ def make_widgets(widgeter_class):
     return widget_list
 
 
-def get_or_create_widget_safe(field_name, test_widget_value='DUMMY_TEST'):
-    if test_widget_value != 'DUMMY_TEST':
-        return test_widget_value
-
-    dbutils = get_dbutils()
+def get_or_create_widget_safe(field_name, dbutils):
     try:
         widget_value = dbutils.widgets.get(field_name)
     except py4j.protocol.Py4JJavaError:

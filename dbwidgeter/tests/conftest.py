@@ -10,7 +10,7 @@ def widget_values_lookup_generator(widget_values):
         try:
             return widget_values[widget]
         except KeyError:
-            return JOB_UNDEFINED
+            raise py4j.protocol.Py4JError()
     return widget_value_lookup
 
 

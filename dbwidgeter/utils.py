@@ -34,12 +34,12 @@ def make_widgets(widgeter_class):
 def get_or_create_widget_safe(field_name, dbutils):
     try:
         widget_value = dbutils.widgets.get(field_name)
-    except py4j.protocol.Py4JJavaError:
+    except (py4j.protocol.Py4JJavaError, py4j.protocol.Py4JError):
         dbutils.widgets.text(field_name, '')
         try:
             widget_value = dbutils.widgets.get(field_name)
             logging.warning(f"Notebook Mode: Widget for '{field_name}' has not been defined, creating empty widget")
-        except py4j.protocol.Py4JJavaError:
+        except (py4j.protocol.Py4JJavaError, py4j.protocol.Py4JError):
             logging.warning(f"Job Mode: Widget for '{field_name}' has not been defined, setting value to None/Default")
             widget_value = JOB_UNDEFINED
     return widget_value

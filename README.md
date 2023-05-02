@@ -37,17 +37,21 @@ from dbwidgeter import DatabricksSettings, DatabricksField
 from dbwidgeter.validators import validate_confirm_in_list, validate_parse_string_to_list
 
 class Widgeter(DatabricksSettings):
-    num_epochs: int = DatabricksField('num_epochs', 
-        description='Something', 
+    num_epochs: int = DatabricksField(
+        'num_epochs', 
+        description='Number of training epochs to run', 
         gt=20,
         default=100)
-    publish_model: bool = DatabricksField('publish_model', 
+    publish_model: bool = DatabricksField(
+        'publish_model', 
         description='Boolean of whether the model should be published', 
         default=False)
-    env: str = DatabricksField('env', 
+    env: str = DatabricksField(
+        'env', 
         description='The environment', 
         default='prod')
-    labels: list = DatabricksField('labels', 
+    labels: list = DatabricksField(
+        'labels', 
         description='list of model labels', 
         default=['cat', 'dog'])
     
